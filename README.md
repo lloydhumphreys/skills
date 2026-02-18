@@ -1,8 +1,6 @@
-# skills
+# Skills
 
 A collection of skills for [Claude Code](https://docs.anthropic.com/en/docs/claude-code), Codex, Cursor, Windsurf, and other AI coding agents.
-
-## Available Skills
 
 | Skill | Description |
 |-------|-------------|
