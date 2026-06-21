@@ -4,6 +4,7 @@ A collection of skills for [Claude Code](https://docs.anthropic.com/en/docs/clau
 
 | Skill | Description |
 |-------|-------------|
+| [vizzy](SKILLS/vizzy/) | Author and maintain Vizzy diagrams (architecture, sequence, flow, class/ER/state, gantt, timeline, journey, charts, mind/concept maps) stored as Markdown in a repo's `vizzy/*.vizzy.md` files |
 | [react-performance-profiler](SKILLS/react-performance-profiler/) | Analyze React DevTools Profiler exports, identify render bottlenecks, and apply targeted optimizations |
 
 ## Structure
@@ -14,6 +15,7 @@ Each skill lives in its own directory under `SKILLS/` and contains a `SKILL.md` 
 SKILLS/
   {skill-name}/
     SKILL.md          # Skill definition (frontmatter + instructions)
+    references/       # Optional deep-dive docs the agent loads on demand
     scripts/          # Optional helper scripts
 ```
 
