@@ -17,6 +17,8 @@ edge / group ids declared in the diagram above. (A `vizzy` fence whose first wor
 | `phase <label>: <A->B> [color:…] [desc:…]` | A sequence swimlane band starting at message `A->B` |
 | `frame <keyword> [condition] color:<token>` | Tint a sequence combined fragment's tab / border / dividers |
 | `title <text>` | Set the diagram's title (handy for a table, which has no title line of its own) |
+| `tablewidths 120 80 160` | Pin a Markdown table's column widths in source-column order |
+| `cellstyle <header> <op> <value>: <color>` | Conditionally tint a Markdown table's matching cells (see below) |
 | `layout TB` / `layout LR` | Override flow direction |
 
 `desc` reads the same in an `architecture` fence (where ids may be declared further down)
@@ -35,6 +37,45 @@ hint 2004: [Why it mattered]("opened to the public in 2006")
 style 2004 fill:blue
 note over 2004: the inflection point
 ```
+
+### Conditional table formatting (`cellstyle`)
+
+`cellstyle` color-codes a Markdown table's body cells by **content**, so enums, tags, and
+statuses read at a glance without styling rows one by one. Put the rules in the `vizzy`
+fence directly below the table:
+
+````
+| Service | Status    | Latency |
+| ------- | --------- | ------: |
+| api     | Done      |     250 |
+| web     | In Review |      45 |
+| db      | Blocked   |     120 |
+
+```vizzy
+cellstyle Status = Done: green
+cellstyle Status = Blocked: red
+cellstyle Status contains review: blue
+cellstyle Latency > 200: orange
+cellstyle Latency < 50: mint
+```
+````
+
+The rule form is `cellstyle <header> <op> <value>: <color>`:
+
+- **`<header>`** names the column by its header text — case-insensitive, spaces allowed.
+- **`<op>`** is `=` (exact) or `contains` (substring), both case-insensitive, or `>` / `<`
+  for numbers. Numeric comparisons parse cells the way sorting does (`$1,200`, `85%`, `+3`
+  all compare as numbers); a cell that isn't a number never matches.
+- **`<color>`** is a palette token (`green`, `red`, `blue`, … — see
+  [`theming.md`](theming.md)) or `#hex`, drawn as a subtle light/dark-adaptive wash behind
+  the matching cell.
+
+Per cell the **first matching rule wins**, in fence order — so put the most specific rule
+first (e.g. `< 20: red` before `< 60: yellow` for thresholds). Quote a value containing a
+colon (`cellstyle Time = "12:30": mint`). Rules match content, never row numbers, so they
+keep working when rows are added, reordered, sorted, or filtered. `vizzy lint` flags rules
+that would silently format nothing (`bad-cellstyle`: unknown header, non-numeric `>`/`<`
+value, unknown color, malformed rule).
 
 ### Sequence swimlanes (`phase`) and fragment tints (`frame`)
 

@@ -229,6 +229,33 @@ clamp the scale, otherwise it auto-scales). Add one or more `bar [...]` / `line 
 series of numbers, index-aligned with the x-axis — overlay a `bar` and a `line` for a
 combo. `xychart-beta horizontal` flips the chart (categories down the side).
 
+## Data table — reference data as a sortable grid
+
+No special keyword: a standard **GFM Markdown table** in the prose (a header row, a
+delimiter row, data rows) renders as a spreadsheet-style card the reader can sort and
+filter. Alignment comes from the delimiter row (`:---` left, `:--:` center, `---:` right);
+numeric columns are detected and right-aligned automatically. A table has no in-fence
+title line, so title it with an id-less `title` / `desc` in a `vizzy` fence directly below:
+
+````
+| Service | Status    | Latency |
+| ------- | --------- | ------: |
+| api     | Done      |     250 |
+| web     | In Review |      45 |
+| db      | Blocked   |     120 |
+
+```vizzy
+title Rollout status
+cellstyle Status = Done: green
+cellstyle Status = Blocked: red
+cellstyle Latency > 200: orange
+```
+````
+
+`cellstyle` color-codes matching cells — the right way to make enums, tags, and statuses
+scannable (see [`annotations.md`](annotations.md) for the full rule grammar); `tablewidths
+120 80 160` pins column widths in source order.
+
 ## Mind map — brainstorms and branching ideas
 
 The "fun" map: a central topic with **colourful branches** fanning out into rounded,
