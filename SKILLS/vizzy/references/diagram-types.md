@@ -229,6 +229,30 @@ clamp the scale, otherwise it auto-scales). Add one or more `bar [...]` / `line 
 series of numbers, index-aligned with the x-axis — overlay a `bar` and a `line` for a
 combo. `xychart-beta horizontal` flips the chart (categories down the side).
 
+## Quadrant — a 2×2 prioritisation grid
+
+```
+quadrantChart
+  title Reach vs Effort
+  x-axis Low Reach --> High Reach
+  y-axis Low Effort --> High Effort
+  quadrant-1 Expand
+  quadrant-2 Promote
+  quadrant-3 Reconsider
+  quadrant-4 Improve
+  Campaign A: [0.3, 0.6]
+  Campaign B: [0.45, 0.23]
+```
+
+First keyword is `quadrantChart` (everyday aliases `2x2` / `2-up`, which parse identically).
+`x-axis <left> --> <right>` (the `--> <right>` half optional) and `y-axis <bottom> --> <top>`
+label the axis ends; `quadrant-1`…`quadrant-4` title the four quadrants (numbered
+anticlockwise from the top-right). `Label: [x, y]` plots a point — both coordinates run `0`–`1`
+from the bottom-left corner, out-of-range values clamped. In a `vizzy` fence below,
+`hint <label>: …` attaches a hover note (the marker itself is the target, no badge),
+`style <label> fill:…` tints one marker, and `style <quadrant-title>` / `style quadrant-N
+fill:…` tints a whole quadrant's background. See [`annotations.md`](annotations.md).
+
 ## Data table — reference data as a sortable grid
 
 No special keyword: a standard **GFM Markdown table** in the prose (a header row, a
@@ -275,7 +299,9 @@ mindmap
 The first content line is the **root** (a centred pill). **Indentation builds the
 hierarchy**: a more-indented line is a child of the nearest shallower line above. Top-level
 branches split left/right, each getting its own colour, inherited by its children. A mind
-map leans on the tree — for labeled relationships between concepts, use a concept map.
+map leans on the tree — for labeled relationships between concepts, use a concept map. To
+pin a top-level branch to a chosen side of the root, add a `side <id> left` / `side <id>
+right` directive in a `vizzy` fence below (unpinned branches auto-balance around it).
 
 ## Concept map — domain models and relationships
 
@@ -298,9 +324,29 @@ conceptmap
 Same indentation grammar as a mind map (root + nested branches), rendered as boxes with
 straight spokes. A line containing a link operator is a **cross-link** — a labeled
 relationship between two named nodes, drawn dashed and *not* part of the indentation:
-`A --> B`, `A -->|rel| B`, `A -- rel --> B`, or `A --|rel|--> B`. An unknown endpoint
-becomes a floating node. Root shape `((circle))`; branches default to rounded, or use
-`(rounded)` / `[rect]`.
+`A --> B`, `A --- B` (unlabeled), `A -->|rel| B`, `A -- rel --> B`, or `A --|rel|--> B`. An
+unknown endpoint becomes a floating node. Root shape `((circle))`; branches default to
+rounded, or use `(rounded)` / `[rect]`.
+
+## Git graph — branching / merging history
+
+```
+gitGraph
+  commit id: "init"
+  branch develop
+  checkout develop
+  commit tag: "v0.2"
+  checkout main
+  merge develop
+  commit type: HIGHLIGHT
+```
+
+First keyword is `gitGraph`; each line builds the history in order. `commit` adds one to the
+current branch (options `id: "name"`, `tag: "v1.0"`, `type: NORMAL | HIGHLIGHT | REVERSE`);
+`branch <name>` forks a new lane and switches to it; `checkout <name>` (or `switch`) makes
+`<name>` current; `merge <name>` joins a branch back as a two-parent commit (accepts a `tag:`);
+`cherry-pick id: "…"` references another commit. Time runs left-to-right; add `gitGraph TB:`
+(or `TD:`) on the first line to run it downward with lanes side by side.
 
 ## Comments
 

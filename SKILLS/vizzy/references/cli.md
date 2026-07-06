@@ -10,6 +10,20 @@ live-reloads as you edit — but `vizzy lint` is worth running after authoring.
 > **Vizzy ▸ Install Command Line Tool…**, then re-run the same command. Only after that
 > install step still fails should you treat the CLI as unavailable.
 
+## Keeping this skill up to date
+
+The Vizzy app can install and update *this very skill* for you — no need to copy an `npx`
+line out of the docs:
+
+```
+vizzy skill install     # add the vizzy skill to your AI agents (Claude Code, Codex, Cursor, …)
+vizzy skill update      # pull the latest version
+```
+
+Both shell out to the `skills` CLI (`github.com/lloydhumphreys/skills`) via `npx`, so Node.js
+must be installed. Extra flags pass straight through — e.g. `vizzy skill install -g` for a
+global install.
+
 ## Rendering diagrams to images
 
 Render any file to PNGs without opening a window — handy for a README or the web:
@@ -58,6 +72,24 @@ file path resolves.
 | `prefer-desc` | info | A `<br>` a `desc:` directive would express more cleanly |
 | `prefer-theme-color` | info | A raw `#hex` instead of a palette name / token |
 
+## Publishing to the web
+
+Share a diagram — or a whole folder — as a public page on usevizzy.com, the same links the
+app's **Publish** menu creates:
+
+```
+vizzy login                        # sign in with GitHub (shared with the app); opens a browser
+vizzy publish vizzy/auth.vizzy.md  # publish one document; prints + copies its link
+vizzy publish vizzy/ --name "Acme Architecture"   # publish a whole folder as one workspace
+vizzy logout                       # sign out (drop the stored token)
+```
+
+A single file publishes as its own page; a folder publishes every `.vizzy.md`/`.md` beneath
+it as one browsable workspace with a file-tree sidebar. Republishing updates the same link.
+Options: `--name`, `--dry-run`, `--open`, `--no-copy`, and `--token` (or set
+`VIZZY_PUBLISH_TOKEN` for CI, where there's no browser to sign in through). **Everything you
+publish is public** — don't publish anything confidential.
+
 ## Driving the live Vizzy window
 
 When the Vizzy app is open, the same `vizzy` CLI can **drive the window on screen** — switch
@@ -71,7 +103,7 @@ vizzy state                  # what the window shows: current doc, zoom/pan, eve
                              #   nodes and groups (with ids), review comments, and other docs
 vizzy goto <document>        # switch the window to another doc — a name (`auth`) or a path
 vizzy focus <id> [--zoom N] [--no-pulse]   # centre on a node or group and pulse a highlight
-vizzy open-hint <nodeId>     # open a node's (?) hint window
+vizzy open-hint <nodeId>     # open a node's (i) hint window
 vizzy comment delete <n>     # delete a review comment by its number
 ```
 

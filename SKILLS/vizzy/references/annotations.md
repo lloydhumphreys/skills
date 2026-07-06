@@ -13,12 +13,14 @@ edge / group ids declared in the diagram above. (A `vizzy` fence whose first wor
 | `payload <A>-><B>: text` | Label what an edge carries |
 | `style <id> fill:…,stroke:…` | Override a node's Mermaid style (layers on top) |
 | `hint <id>: [Title](dest)` | Attach a click-to-open info hint badge (see below) |
-| `pos <id> x=320 y=40` | Pin a node's position (its center) |
+| `pos <id> x=320 y=40` | Pin a node's or group's position (its center) |
+| `labelpos <A>-><B>: 0.3` | Slide an edge's label along the edge (`0` = source end … `1` = target end) |
 | `phase <label>: <A->B> [color:…] [desc:…]` | A sequence swimlane band starting at message `A->B` |
 | `frame <keyword> [condition] color:<token>` | Tint a sequence combined fragment's tab / border / dividers |
 | `title <text>` | Set the diagram's title (handy for a table, which has no title line of its own) |
 | `tablewidths 120 80 160` | Pin a Markdown table's column widths in source-column order |
 | `cellstyle <header> <op> <value>: <color>` | Conditionally tint a Markdown table's matching cells (see below) |
+| `side <id> left` / `right` | Pin a mind-map top-level branch to a side of the root |
 | `layout TB` / `layout LR` | Override flow direction |
 
 `desc` reads the same in an `architecture` fence (where ids may be declared further down)

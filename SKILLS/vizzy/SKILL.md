@@ -1,8 +1,8 @@
 ---
 name: vizzy
-description: Author and maintain Vizzy diagrams — architecture maps, sequence/flow charts, class/ER/state, gantt, timeline, journey, pie, xychart, data tables, and mind/concept maps — stored as Markdown in a repo's vizzy/*.vizzy.md files and rendered by the Vizzy macOS app. Use when asked to create, update, explain, render, or lint a Vizzy diagram for a repo.
+description: Author and maintain Vizzy diagrams — architecture maps, sequence/flow charts, class/ER/state, gantt, timeline, journey, pie, xychart, quadrant, data tables, git graphs, and mind/concept maps — stored as Markdown in a repo's vizzy/*.vizzy.md files and rendered by the Vizzy macOS app. Use when asked to create, update, explain, render, or lint a Vizzy diagram for a repo.
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   tags:
     - vizzy
     - diagrams
@@ -26,7 +26,7 @@ you need depth on a specific area.
 
 | For… | Read |
 |------|------|
-| The grammar of every diagram type (sequence, flowchart, architecture, class/ER/state, gantt, timeline, journey, pie, xychart, data table, mind/concept map) | [`references/diagram-types.md`](references/diagram-types.md) |
+| The grammar of every diagram type (sequence, flowchart, architecture, class/ER/state, gantt, timeline, journey, pie, xychart, quadrant, data table, git graph, mind/concept map) | [`references/diagram-types.md`](references/diagram-types.md) |
 | Annotations & styling — the `vizzy`-fence directives (`desc`/`note`/`payload`/`style`/`hint`/`pos`/`phase`/`frame`/`title`/`tablewidths`/`cellstyle`/`layout`), Mermaid styling, conditional table color-coding, and `desc` vs `note` vs `hint` | [`references/annotations.md`](references/annotations.md) |
 | The `vizzy` CLI — render to PNG, lint, and drive the live app window | [`references/cli.md`](references/cli.md) |
 | Colors, theming with `vizzy.config`, and assets | [`references/theming.md`](references/theming.md) |
@@ -81,7 +81,8 @@ blocks render as diagrams. There are two kinds of diagram fence:
 
 - A ` ```mermaid ` fence holds standard Mermaid (a practical subset): `sequenceDiagram`,
   `flowchart`/`graph`, `classDiagram`, `erDiagram`, `stateDiagram-v2`, `gantt`, `timeline`,
-  `journey`, `pie`, `xychart-beta`, `mindmap`, `conceptmap`. This is the diagram itself.
+  `journey`, `pie`, `xychart-beta`, `quadrantChart`, `gitGraph`, `mindmap`, `conceptmap`.
+  This is the diagram itself.
 - A ` ```vizzy ` fence is Vizzy's own mini-language. It does two things Mermaid can't:
   1. a standalone `architecture` service map (services, groups, labelled edges); and
   2. annotations layered onto the diagram (or Markdown table) in the fence **immediately
