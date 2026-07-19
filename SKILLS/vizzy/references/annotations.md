@@ -9,7 +9,7 @@ edge / group ids declared in the diagram above. (A `vizzy` fence whose first wor
 | Directive | Effect |
 |-----------|--------|
 | `desc <id>: text` | A one-line description under a node's label or a group's title |
-| `note <id>: text` | Attach a sticky note beside a node |
+| `note <id>[,<id2>,…]: text` | Attach a sticky note beside a node (comma-separate ids to span one note across several nodes) |
 | `payload <A>-><B>: text` | Label what an edge carries |
 | `style <id> fill:…,stroke:…` | Override a node's Mermaid style (layers on top) |
 | `hint <id>: [Title](dest)` | Attach a click-to-open info hint badge (see below) |
@@ -21,7 +21,8 @@ edge / group ids declared in the diagram above. (A `vizzy` fence whose first wor
 | `tablewidths 120 80 160` | Pin a Markdown table's column widths in source-column order |
 | `cellstyle <header> <op> <value>: <color>` | Conditionally tint a Markdown table's matching cells (see below) |
 | `side <id> left` / `right` | Pin a mind-map top-level branch to a side of the root |
-| `layout TB` / `layout LR` | Override flow direction |
+| `layout TB` / `layout LR` | Override flow direction (on a [diff](diagram-types.md), `layout split` / `unified` picks its view instead) |
+| `collapse 8` | Fold a [diff](diagram-types.md)'s unchanged context runs longer than N lines into a "⋯ N unchanged lines" pill |
 
 `desc` reads the same in an `architecture` fence (where ids may be declared further down)
 and in an annotation fence after a Mermaid diagram. On a **group/subgraph** id it renders

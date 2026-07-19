@@ -348,6 +348,57 @@ current branch (options `id: "name"`, `tag: "v1.0"`, `type: NORMAL | HIGHLIGHT |
 `cherry-pick id: "…"` references another commit. Time runs left-to-right; add `gitGraph TB:`
 (or `TD:`) on the first line to run it downward with lanes side by side.
 
+## Treemap — proportional-area breakdowns
+
+```
+treemap-beta
+"Documents"
+    "Reports": 40
+    "Notes": 15
+"Media"
+    "Photos": 60
+    "Videos": 25
+```
+
+First keyword is `treemap-beta` (the bare `treemap` alias works too); an optional
+`title <text>` sits on its own line. Each remaining line is a node — `"Label": value` is a
+**leaf** (quotes optional, value numeric), `"Label"` alone is a **section**; indentation
+nests a line under the nearest less-indented one, and multiple top-level nodes are fine (a
+forest, not a single root like a mind map). Tile area is proportional to value — a section's
+area is the sum of its descendant leaves — laid out squarified (largest tiles first). Each
+top-level node gets its own colour in source order, descendants fading with depth so a
+subtree reads as one family. A zero, negative, or non-numeric value just makes the line a
+valueless section, never an error. Best for disk-usage-style breakdowns: storage, budgets,
+bundle sizes.
+
+## Diff — "what changed"
+
+Paste `git diff` output straight into a ` ```diff ` fence — no special syntax:
+
+````
+```diff
+--- a/src/auth.ts
++++ b/src/auth.ts
+@@ -12,7 +12,9 @@ export async function login(
+   const user = await findUser(email)
+-  const token = sign(user.id)
++  const token = sign(user.id, { expiresIn: '1h' })
+   return respond(token)
+```
+````
+
+Standard **unified diff**, exactly as `git diff` emits it: `diff --git` / `index` / mode
+lines are understood, `---` / `+++` name the file, `@@` headers set the line numbers, and
+`+` / `-` / space lines are the content. Each file in the fence becomes its own card with a
+path + `+N −M` header, old/new line-number gutters, red/green row washes, and word-level
+highlights on changed line pairs; new files, deletions, renames, and binary entries are
+labelled on the header chip. Nothing is fatal — a bare hunk, or even loose `+`/`-` lines,
+still renders. A `vizzy` fence directly below opts into `layout split` (side-by-side old/new
+columns; `layout unified` switches back) and `collapse <N>` (fold unchanged runs longer than
+N lines into a "⋯ N unchanged lines" pill). It degrades perfectly — GitHub and any Markdown
+host already tint ` ```diff ` blocks red/green. Best for code-review notes, migration
+walkthroughs, and "here's the fix".
+
 ## Comments
 
 `%%` inside a `mermaid` fence; `#` inside a `vizzy` or `architecture` fence.

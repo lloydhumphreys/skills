@@ -1,8 +1,8 @@
 ---
 name: vizzy
-description: Author and maintain Vizzy diagrams — architecture maps, sequence/flow charts, class/ER/state, gantt, timeline, journey, pie, xychart, quadrant, data tables, git graphs, and mind/concept maps — stored as Markdown in a repo's vizzy/*.vizzy.md files and rendered by the Vizzy macOS app. Use when asked to create, update, explain, render, or lint a Vizzy diagram for a repo.
+description: Author and maintain Vizzy diagrams — architecture maps, sequence/flow charts, class/ER/state, gantt, timeline, journey, pie, xychart, quadrant, treemap, diff, data tables, git graphs, and mind/concept maps — written as Markdown `*.vizzy.md` files (conventionally in a repo's `vizzy/` folder) and rendered by the Vizzy macOS app. Use when asked to create, update, explain, render, or lint a Vizzy diagram.
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
   tags:
     - vizzy
     - diagrams
@@ -26,14 +26,15 @@ you need depth on a specific area.
 
 | For… | Read |
 |------|------|
-| The grammar of every diagram type (sequence, flowchart, architecture, class/ER/state, gantt, timeline, journey, pie, xychart, quadrant, data table, git graph, mind/concept map) | [`references/diagram-types.md`](references/diagram-types.md) |
-| Annotations & styling — the `vizzy`-fence directives (`desc`/`note`/`payload`/`style`/`hint`/`pos`/`phase`/`frame`/`title`/`tablewidths`/`cellstyle`/`layout`), Mermaid styling, conditional table color-coding, and `desc` vs `note` vs `hint` | [`references/annotations.md`](references/annotations.md) |
+| The grammar of every diagram type (sequence, flowchart, architecture, class/ER/state, gantt, timeline, journey, pie, xychart, quadrant, treemap, diff, data table, git graph, mind/concept map) | [`references/diagram-types.md`](references/diagram-types.md) |
+| Annotations & styling — the `vizzy`-fence directives (`desc`/`note`/`payload`/`style`/`hint`/`pos`/`phase`/`frame`/`title`/`tablewidths`/`cellstyle`/`layout`/`collapse`), Mermaid styling, conditional table color-coding, and `desc` vs `note` vs `hint` | [`references/annotations.md`](references/annotations.md) |
 | The `vizzy` CLI — render to PNG, lint, and drive the live app window | [`references/cli.md`](references/cli.md) |
 | Colors, theming with `vizzy.config`, and assets | [`references/theming.md`](references/theming.md) |
 
 ## Where diagrams live
 
-A `vizzy/` folder at the repo root, one concern per file:
+A `*.vizzy.md` file can live anywhere — no folder name or git repo is required. The good
+convention, though, is one `vizzy/` folder at the repo root, one concern per file:
 
 ```
 vizzy/
@@ -81,13 +82,16 @@ blocks render as diagrams. There are two kinds of diagram fence:
 
 - A ` ```mermaid ` fence holds standard Mermaid (a practical subset): `sequenceDiagram`,
   `flowchart`/`graph`, `classDiagram`, `erDiagram`, `stateDiagram-v2`, `gantt`, `timeline`,
-  `journey`, `pie`, `xychart-beta`, `quadrantChart`, `gitGraph`, `mindmap`, `conceptmap`.
-  This is the diagram itself.
+  `journey`, `pie`, `xychart-beta`, `quadrantChart`, `treemap-beta`, `gitGraph`, `mindmap`,
+  `conceptmap`. This is the diagram itself.
 - A ` ```vizzy ` fence is Vizzy's own mini-language. It does two things Mermaid can't:
   1. a standalone `architecture` service map (services, groups, labelled edges); and
   2. annotations layered onto the diagram (or Markdown table) in the fence **immediately
      above** it — `note`, `desc`, `payload`, `style`, `hint`, `pos`, `phase`, `frame`,
-     `title`, `tablewidths`, `cellstyle`, `layout`.
+     `title`, `tablewidths`, `cellstyle`, `layout`, `collapse`.
+- A ` ```diff ` fence renders `git diff` output as a diff diagram — no special syntax, just
+  paste it in (a `vizzy` fence below can add `layout split` / `collapse N`). See
+  [`references/diagram-types.md`](references/diagram-types.md).
 
 Rule of thumb: reach for a ` ```mermaid ` fence to draw the diagram; add a ` ```vizzy `
 fence right after it only when you need an architecture map, or want to annotate, position,
