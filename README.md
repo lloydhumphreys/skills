@@ -4,15 +4,15 @@ A collection of skills for [Claude Code](https://docs.anthropic.com/en/docs/clau
 
 | Skill | Description |
 |-------|-------------|
-| [vizzy](SKILLS/vizzy/) | Author and maintain Vizzy diagrams (architecture, sequence, flow, class/ER/state, gantt, timeline, journey, charts, mind/concept maps) stored as Markdown in a repo's `vizzy/*.vizzy.md` files |
-| [react-performance-profiler](SKILLS/react-performance-profiler/) | Analyze React DevTools Profiler exports, identify render bottlenecks, and apply targeted optimizations |
+| [vizzy](skills/vizzy/) | Author and maintain Vizzy diagrams (architecture, sequence, flow, class/ER/state, gantt, timeline, journey, charts, mind/concept maps) stored as Markdown in a repo's `vizzy/*.vizzy.md` files |
+| [react-performance-profiler](skills/react-performance-profiler/) | Analyze React DevTools Profiler exports, identify render bottlenecks, and apply targeted optimizations |
 
 ## Structure
 
-Each skill lives in its own directory under `SKILLS/` and contains a `SKILL.md` that defines when the skill applies, what inputs it needs, and the knowledge it provides.
+Each skill lives in its own directory under `skills/` and contains a `SKILL.md` that defines when the skill applies, what inputs it needs, and the knowledge it provides.
 
 ```
-SKILLS/
+skills/
   {skill-name}/
     SKILL.md          # Skill definition (frontmatter + instructions)
     references/       # Optional deep-dive docs the agent loads on demand
@@ -27,7 +27,7 @@ npx skills add https://github.com/lloydhumphreys/skills --skill react-performanc
 
 ## Adding a Skill
 
-1. Create a directory under `SKILLS/` using kebab-case
+1. Create a directory under `skills/` using kebab-case
 2. Add a `SKILL.md` with YAML frontmatter (`name`, `description`, `metadata`) and structured sections
 3. Keep `SKILL.md` focused — under 500 lines — so it fits in an agent's context window
 4. Add helper scripts under `scripts/` if the skill needs them
