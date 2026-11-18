@@ -6,6 +6,7 @@ A collection of skills for [Claude Code](https://docs.anthropic.com/en/docs/clau
 |-------|-------------|
 | [vizzy](skills/vizzy/) | Author and maintain Vizzy diagrams (architecture, sequence, flow, class/ER/state, gantt, timeline, journey, charts, mind/concept maps) stored as Markdown in a repo's `vizzy/*.vizzy.md` files |
 | [adoption-friction](skills/adoption-friction/) | Audit why users would still hesitate to adopt a product even if it were free, grounded in the repo, and publish a ranked artifact with five mitigations per friction |
+| [look](skills/look/) | Receive photos and voice narration sent from the Look iPhone app, via the Look Mac app, with `/look` |
 | [react-performance-profiler](skills/react-performance-profiler/) | Analyze React DevTools Profiler exports, identify render bottlenecks, and apply targeted optimizations |
 
 ## Structure
